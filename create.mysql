@@ -1,0 +1,11 @@
+DROP TABLE IF EXISTS urls;
+
+CREATE TABLE urls (
+
+    short_url   VARCHAR(255) NOT NULL PRIMARY KEY,
+    long_url    TEXT,
+    shortened   TIMESTAMP,
+    
+    INDEX long_urls (long_url(255))
+
+) ENGINE=InnoDB, CHARACTER SET utf8;
