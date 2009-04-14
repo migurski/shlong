@@ -17,7 +17,7 @@
             }
         }
         
-        function addLongURL($long_url)
+        function addURL($long_url)
         {
             for($i = 1; $i <= 16; $i += 1)
             {
@@ -31,6 +31,10 @@
                 if(mysql_query($q, $this->db))
                     return $short_url;
 
+                // duplicate short URL, we try again
+                if(mysql_errno($this->db) == 1062)
+                    continue;
+                
                 die('MySQL error: '.mysql_errno($this->db));
             }
         }
@@ -102,7 +106,7 @@
             $short_url = $context->getShortURL($long_url);
             
             if(empty($short_url)) {
-                $short_url = $context->addLongURL($long_url);
+                $short_url = $context->addURL($long_url);
                 header('HTTP/1.0 201');
 
             } else {
