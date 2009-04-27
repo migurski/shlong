@@ -135,7 +135,23 @@
         }
 
         $context->close();
-        header('HTTP/1.0 404');
+        header('Content-Type: text/html');
+?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en">
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+	<title>Shlong!</title>
+</head>
+<body>
+    <form action="index.php" method="post">
+        <input name="url" type="text" size="40">
+        <input type="submit">
+    </form>
+</body>
+</html>
+        <?php
     }
 
 ?>
