@@ -118,7 +118,7 @@
         }
     }
     
-    if($_SERVER['REQUEST_METHOD'] == 'GET')
+    if($_SERVER['REQUEST_METHOD'] == 'GET' || $_SERVER['REQUEST_METHOD'] == 'HEAD')
     {
         if($long_url = $context->getLongURL($context->currentURL()))
         {
@@ -133,6 +133,19 @@
             $context->close();
             exit($short_url."\n");
         }
+
+        if($short_url = $context->getShortURL(urldecode($_SERVER['QUERY_STRING'])))
+        {
+            $context->close();
+            exit($short_url."\n");
+        }
+
+	if(!empty($_SERVER['QUERY_STRING']))
+	{
+            $context->close();
+		header('HTTP/1.1 404');
+            die();
+	}
 
         $context->close();
         header('Content-Type: text/html');
